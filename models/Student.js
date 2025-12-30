@@ -5,8 +5,11 @@ const StudentSchema = new mongoose.Schema(
     name: { type: String, required: true, trim: true },
     email: { type: String, required: true, unique: true },
     phone: { type: String, required: true },
-    course: { type: mongoose.Schema.Types.ObjectId, ref: "Course" },
-    status: { type: String, default: "active" },
+    course: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Course",
+      required: true,
+    },
   },
   { timestamps: true }
 );
