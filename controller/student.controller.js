@@ -26,4 +26,28 @@ const StudentGetController = async (req, res) => {
   }
 };
 
-module.exports = { StudentCreateController, StudentGetController };
+// ✅ Delete student
+const StudentDeleteController = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedStudent = await Student.findByIdAndDelete(id);
+
+    if (!deletedStudent) {
+      return res.status(404).json({ error: "Student not found" });
+    }
+
+    res.status(200).json({
+      message: "Student deleted successfully",
+      data: deletedStudent,
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+module.exports = {
+  StudentCreateController,
+  StudentGetController,
+  StudentDeleteController,
+};
