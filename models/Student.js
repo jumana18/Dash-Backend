@@ -10,6 +10,10 @@ const StudentSchema = new mongoose.Schema(
       ref: "Course",
       required: true,
     },
+    image: {
+      type: String, // stores file path
+      default: null,
+    },
   },
   { timestamps: true }
 );

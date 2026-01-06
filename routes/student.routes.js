@@ -1,13 +1,20 @@
 const express = require("express");
 const router = express.Router();
+
+const upload = require("../middlewares/multer"); // 👈 ADD THIS
+
 const {
   StudentCreateController,
   StudentGetController,
   StudentDeleteController,
 } = require("../controller/student.controller");
 
-// Create student
-router.post("/createstudent", StudentCreateController);
+// Create student (with image)
+router.post(
+  "/createstudent",
+  upload.single("image"), // 👈 Multer middleware
+  StudentCreateController
+);
 
 // Get all students
 router.get("/getstudents", StudentGetController);

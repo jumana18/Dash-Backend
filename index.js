@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path"); // 👈 ADD THIS
 const { connectDB } = require("./config/db");
 
 const courseRoutes = require("./routes/course.route");
@@ -19,6 +20,9 @@ app.use(
 
 // JSON parser
 app.use(express.json());
+
+// 👇 ADD THIS (makes uploads public)
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Routes
 app.use("/api/courses", courseRoutes);

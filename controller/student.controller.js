@@ -2,17 +2,36 @@ const Student = require("../models/Student");
 
 // Create Student
 const StudentCreateController = async (req, res) => {
-  const { name, email, phone, course } = req.body;
-
-  if (!name || !email || !phone || !course) {
-    return res.status(400).json({ error: "All fields are required" });
-  }
-
   try {
-    const student = await Student.create({ name, email, phone, course });
-    res.status(201).json(student);
+    const { name, email, phone, course } = req.body;
+
+    if (!name || !email || !phone || !course) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
+    console.log("ldhckhcd",req.file);
+    
+    // 👇 Get uploaded image from Multer
+    const image = req.file ? `/uploads/students/${req.file.filename}` : null;
+
+    const student = await Student.create({
+      name,
+      email,
+      phone,
+      course,
+      image,
+    });
+    console.log("image got", image);
+
+    res.status(201).json({
+      success: true,
+      student,
+    });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({
+      success: false,
+      error: err.message,
+    });
   }
 };
 
@@ -26,7 +45,7 @@ const StudentGetController = async (req, res) => {
   }
 };
 
-// ✅ Delete student
+// Delete student
 const StudentDeleteController = async (req, res) => {
   try {
     const { id } = req.params;
