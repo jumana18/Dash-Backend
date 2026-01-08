@@ -5,6 +5,7 @@ const { connectDB } = require("./config/db");
 
 const courseRoutes = require("./routes/course.route");
 const studentRoutes = require("./routes/student.routes");
+const teacherRoutes = require("./routes/teacherRoutes")
 
 const app = express();
 const PORT = 3000;
@@ -27,6 +28,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // Routes
 app.use("/api/courses", courseRoutes);
 app.use("/api/students", studentRoutes);
+app.use("/api/teachers", teacherRoutes);
 
 connectDB();
 
