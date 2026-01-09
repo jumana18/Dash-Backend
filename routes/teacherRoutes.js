@@ -1,14 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const upload = require("../middlewares/multer");
 const {
   createTeacher,
-  getTeachers,
+  getAllTeachers,
+  getTeacherById,
+  updateTeacher,
   deleteTeacher,
 } = require("../controller/teacherController");
 
-router.post("/create", upload.single("image"), createTeacher);
-router.get("/", getTeachers);
-router.delete("/:id", deleteTeacher);
+// Routes
+router.post("/", createTeacher); // Create
+router.get("/", getAllTeachers); // Get all
+router.get("/:id", getTeacherById); // Get one
+router.put("/:id", updateTeacher); // Update
+router.delete("/:id", deleteTeacher); // Delete
 
 module.exports = router;
